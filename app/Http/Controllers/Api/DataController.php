@@ -46,6 +46,10 @@ class DataController extends Controller
             $query->whereBetween('price', [0 , $request->input('price_max')]);
         }
 
+        if ($request->has('price_min') && !$request->input('price_max')) {
+            $query->where('price', '>=', $request->input('price_min'));
+        }
+
         if ($request->has('price_min') && $request->has('price_max')) {
             $query->whereBetween('price', [$request->input('price_min'), $request->input('price_max')]);
         }
